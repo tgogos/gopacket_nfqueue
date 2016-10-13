@@ -28,7 +28,7 @@ route add -net 192.168.4.0 netmask 255.255.255.0 gw 192.168.5.3 dev eth1
 ```
 
 ###Packet inspection VM configuration:
-The following commands set up the packet forwarding and the nfqueue:
+The following commands set up the packet forwarding and the routing rules in order to use NFQUEUE:
 ```
 sysctl -w net.ipv4.ip_forward=1
 iptables -t raw -A PREROUTING -i eth1 -j NFQUEUE --queue-num 0
