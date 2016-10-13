@@ -9,15 +9,28 @@ Virtualbox with three Ubuntu VMs set up like this:
  +-----------+       +-------------------+       +-----------+
            eth1    eth1                 eth2    eth1
 
-client eth1: 192.168.2.X
-server eth1: 192.168.3.X
+client VM eth1 (host-only): 192.168.4.2
+server VM eth1 (host-only): 192.168.5.2
 
-pkt inspection eth1: 192.168.2.4
-pkt inspection eth2: 192.168.3.4
+pkt inspection VM eth1 (host-only): 192.168.4.3
+pkt inspection VM eth2 (host-only): 192.168.5.3
 ```
-###Client configuration:
+###Client VM configuration:
+The client must forward traffic to the `pkt inspection VM eth1` so a route must be added (see cl_prepare.sh file)
+```
+route add -net 192.168.5.0 netmask 255.255.255.0 gw 192.168.4.3 dev eth1
+```
 
+###Server VM configuration:
+The server must forward traffic to the `pkt inspection VM eth2` so a route must be added (see srv_prepare.sh file)
+```
+route add -net 192.168.4.0 netmask 255.255.255.0 gw 192.168.5.3 dev eth1
+```
 
-
- 
- 
+###Packet inspection VM configuration:
+The following commands set up the packet forwarding and the nfqueue:
+```
+sysctl -w net.ipv4.ip_forward=1
+iptables -t raw -A PREROUTING -i eth1 -j NFQUEUE --queue-num 0
+iptables -t raw -A PREROUTING -i eth2 -j NFQUEUE --queue-num 0
+```
