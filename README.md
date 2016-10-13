@@ -23,13 +23,13 @@ pkt inspection VM eth1 (host-only): 192.168.4.3
 pkt inspection VM eth2 (host-only): 192.168.5.3
 ```
 ###Client VM configuration:
-The client must forward traffic to the `pkt inspection VM eth1` so a route must be added (see cl_prepare.sh file)
+The client must forward traffic to the `pkt inspection VM eth1` so a route must be added:
 ```
 route add -net 192.168.5.0 netmask 255.255.255.0 gw 192.168.4.3 dev eth1
 ```
 
 ###Server VM configuration:
-The server must forward traffic to the `pkt inspection VM eth2` so a route must be added (see srv_prepare.sh file)
+The server must forward traffic to the `pkt inspection VM eth2` so a route must be added:
 ```
 route add -net 192.168.4.0 netmask 255.255.255.0 gw 192.168.5.3 dev eth1
 ```
