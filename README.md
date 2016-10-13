@@ -1,6 +1,13 @@
 # gopacket_nfqueue
 Packet inspection with gopacket and nfqueue...
 
+```bash
+# how to run...
+cd /[golang path]/src/github.com/tgogos/gopacket_nfqueue
+go install .
+sudo $GOPATH/bin/gopacket_nfqueue
+```
+
 ##Test environment
 Virtualbox with three Ubuntu VMs set up like this:
 ```
