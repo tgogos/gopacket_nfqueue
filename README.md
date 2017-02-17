@@ -2,6 +2,11 @@
 Packet inspection with golang, gopacket and nfqueue...
 
 ```bash
+# prerequisites
+go get github.com/google/gopacket
+apt-get install libpcap-dev
+apt-get install libnetfilter-queue-dev
+
 # how to run...
 cd /[golang path]/src/github.com/tgogos/gopacket_nfqueue
 go install .
